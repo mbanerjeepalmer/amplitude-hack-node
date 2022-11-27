@@ -1,11 +1,33 @@
-const express = require("express");
+import fetch from "node-fetch";
+import express from "express";
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.get("/", (req, res) => res.type('html').send(html));
+app.get("/", (req, res) => res.type("html").send(html));
+
+let hardcodedFetch = async function (date, label) {
+  const data = await fetch(
+    `https://amplitude.com/api/2/annotations?app_id=424045&date=2022-11-27&label=Storm+Urgh&chart_id=vw4igzs&details=`,
+    {
+      headers: {
+        Authorization:
+          "Basic ODdjODUxZDM5YjhkZGE0ZjFlYWY0NzdiM2MyNDdhNDI6ZDU3OTY4MDljNTg2YmVlZDU3YWZhYzExZmE5NzA0Zjc=",
+      },
+      method: "POST",
+      redirect: "follow",
+      mode: "no-cors",
+      credentials: "include",
+    }
+  ).then((response) => response.text());
+  console.log(data);
+};
+
+app.post("/enrich", (req, res) => {
+  hardcodedFetch();
+  res.json({ annotations: "4" });
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
 
 const html = `
 <!DOCTYPE html>
@@ -56,4 +78,4 @@ const html = `
     </section>
   </body>
 </html>
-`
+`;
