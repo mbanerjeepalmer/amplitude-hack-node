@@ -14,12 +14,13 @@ let stormData = [
   { date: "2022-11-15", label: "Storm Freddie" },
 ];
 
-let dummyfetch = async function(date, label) {
+let dummyfetch = async function(date, label, chart) {
 	const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
   const details = today.toUTCString()
+  const chart_id = chart
   
-	const data = await fetch(`https://amplitude.com/api/2/annotations?app_id=424045&date=${date}&label=${label}&chart_id=0m8aihx&details=${details}`, {
+	const data = await fetch(`https://amplitude.com/api/2/annotations?app_id=424045&date=${date}&label=${label}&chart_id=${chart_id}&details=${details}`, {
     headers: {
       'Authorization': "Basic ODdjODUxZDM5YjhkZGE0ZjFlYWY0NzdiM2MyNDdhNDI6ZDU3OTY4MDljNTg2YmVlZDU3YWZhYzExZmE5NzA0Zjc=",
     },
@@ -32,7 +33,7 @@ let dummyfetch = async function(date, label) {
 
 let postStorms = function () {
   for (const storm of stormData) {
-    dummyfetch(storm.date, storm.label);
+    dummyfetch(storm.date, storm.label, "f6x2l7f");
   }
 };
 
