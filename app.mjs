@@ -19,7 +19,7 @@ let dummyfetch = async function(date, label) {
   const today = new Date(timeElapsed);
   const details = today.toUTCString()
   
-	const data = await fetch(`https://amplitude.com/api/2/annotations?app_id=424045&date=${date}&label=${label}&chart_id=vw4igzs&details=${details}`, {
+	const data = await fetch(`https://amplitude.com/api/2/annotations?app_id=424045&date=${date}&label=${label}&chart_id=0m8aihx&details=${details}`, {
     headers: {
       'Authorization': "Basic ODdjODUxZDM5YjhkZGE0ZjFlYWY0NzdiM2MyNDdhNDI6ZDU3OTY4MDljNTg2YmVlZDU3YWZhYzExZmE5NzA0Zjc=",
     },
