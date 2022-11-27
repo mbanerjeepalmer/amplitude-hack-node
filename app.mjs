@@ -5,25 +5,36 @@ const port = process.env.PORT || 3001;
 
 app.get("/", (req, res) => res.type("html").send(html));
 
-let hardcodedFetch = async function (date, label) {
-  const data = await fetch(
-    `https://amplitude.com/api/2/annotations?app_id=424045&date=2022-11-27&label=Storm+Urgh&chart_id=vw4igzs&details=`,
-    {
-      headers: {
-        Authorization:
-          "Basic ODdjODUxZDM5YjhkZGE0ZjFlYWY0NzdiM2MyNDdhNDI6ZDU3OTY4MDljNTg2YmVlZDU3YWZhYzExZmE5NzA0Zjc=",
-      },
-      method: "POST",
-      redirect: "follow",
-      mode: "no-cors",
-      credentials: "include",
-    }
-  ).then((response) => response.text());
-  console.log(data);
+let stormData = [
+  { date: "2022-02-02", label: "Storm Albert" },
+  { date: "2022-04-11", label: "Storm Boycie" },
+  { date: "2022-05-09", label: "Storm Cassandra" },
+  { date: "2022-08-28", label: "Storm Denzil" },
+  { date: "2022-10-20", label: "Storm Edward" },
+  { date: "2022-11-15", label: "Storm Freddie" },
+];
+
+let dummyfetch = async function(date, label) {
+	
+	const data = await fetch(`https://amplitude.com/api/2/annotations?app_id=424045&date=${date}&label=${label}&chart_id=vw4igzs&details=`, {
+    headers: {
+      'Authorization': "Basic ODdjODUxZDM5YjhkZGE0ZjFlYWY0NzdiM2MyNDdhNDI6ZDU3OTY4MDljNTg2YmVlZDU3YWZhYzExZmE5NzA0Zjc=",
+    },
+    method: 'POST',
+	  redirect: 'follow'
+  })
+	  .then(response => response.text())
+	console.log(data)
+} 
+
+let postStorms = function () {
+  for (const storm of stormData) {
+    dummyfetch(storm.date, storm.label);
+  }
 };
 
 app.post("/enrich", (req, res) => {
-  hardcodedFetch();
+  postStorms();
   res.json({ annotations: "4" });
 });
 
