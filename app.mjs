@@ -33,7 +33,7 @@ let dummyfetch = async function(date, label, chart) {
 
 let postStorms = function () {
   for (const storm of stormData) {
-    dummyfetch(storm.date, storm.label, "f6x2l7f");
+    dummyfetch(storm.date, storm.label, "0m8aihx");
   }
 };
 
